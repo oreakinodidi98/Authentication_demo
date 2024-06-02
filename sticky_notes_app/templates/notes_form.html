@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Board - {% if note_form.instance.pk %}Edit{% else %}Create{% endif %} Note
+{% endblock %}
+
+{% block content %}
+
+<h2>{% if note_form.instance.pk %}Edit{% else %}Create{% endif %} Note</h2>
+<!-- create post -->
+
+<form method="post" action="{% if note_form.instance.pk %}{% url 'notes_update' pk=note_form.instance.pk %}{% else %}{% url 'create' %}{% endif %}">
+    {% csrf_token %}
+    {{ note_form.as_p }}
+    <div class="form-group">
+        <!-- add permission -->
+        {% if perms.sticky_notes_app.add_stick_notes %}
+        <button type="submit">Save</button>
+        {% endif %}
+    </div>
+    
+</form>
+
+<a href="{% url 'home' %}">Back to Notes page</a>
+
+{% endblock %}

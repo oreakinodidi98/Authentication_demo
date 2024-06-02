@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Board - {{ page_title }} {% endblock %}
+
+
+{% block content %}
+<div class="form-container">
+
+    <p>You have been logged out.</p>
+
+    <p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
+    <p>Already have an account? <a href="{% url 'author_create' %}">Login</a></p>
+
+</div>
+{% endblock %}

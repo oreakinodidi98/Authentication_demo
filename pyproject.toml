@@ -1,0 +1,14 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "sticky_notes"
+version = "0.0.1"
+description = "A simple sticky notes application made using django"
+authors = [
+    { name="Ore Akin-Odidi", email="oreakinodidi@microsoft.com" },
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["sticky_notes/sticky_notes_app"]

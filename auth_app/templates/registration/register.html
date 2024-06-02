@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+<!-- registration page -->
+{% block title %}Board - {{ page_title }} {% endblock %}
+
+{% block content %}
+<!-- register page -->
+<div class="form-container">
+    <form action="{% url 'register' %}" method="post">
+        {% csrf_token %}
+        <!-- form to register  -->
+        {{ form.as_p }}
+        <label for="account_type">Account Type</label>
+        <select name="account_type" id="account_type">
+            <option value="reader">Reader</option>
+            <option value="poster">Poster</option>
+        </select><br>
+        <div class="form-group">
+        <!-- register button -->
+        <div class="form-group">
+            <button type="submit">Register</button>
+        </div>
+    </form>
+    <p>Already have an account? <a href="{% url 'login' %}">Login</a></p>
+</div>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Board - {{ note.title }} {% endblock %}
+
+{% block content %}
+
+<!-- display specific posts -->
+
+<h1>{{ note.title }}</h1>
+<div class="note-card">
+    <p>{{ note.content }}</p>
+    <p>{{ note.author }}</p>
+    <p>{{ note.created_at }}</p>
+    <div class="form-group">
+        <form method="post" action="{% url 'notes_delete' pk=note.pk %}">
+            {% csrf_token %}
+            <!-- add permision to delete -->
+            {% if perms.sticky_notes_app.delete_stick_notes %}
+            <button type="submit">Delete</button>
+            {% endif %}
+        </form>
+    </div>
+</div>
+<!-- add permision if statment for notes update will show this button -->
+{% if perms.sticky_notes_app.change_stick_notes %}
+<a href="{% url 'notes_update' pk=note.pk %}">Edit</a>
+{% endif %}
+<a href="{% url 'home'%}">Home</a>
+
+{% endblock %}

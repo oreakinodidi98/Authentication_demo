@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Board - {{ page_title }} {% endblock %}
+
+{% block content %}
+<h1>Welcome to Sticky Notes</h1>
+
+<p>Organize your thoughts and tasks efficiently with Sticky Notes. Log in to get started!</p>
+
+<!-- list to display posts -->
+
+<!-- if notes are in db -->
+{% if notes %}
+    <ul>
+        <!-- list to go through notes  -->
+        {% for note in notes %}
+            <li>
+                <h2><a href="{% url 'notes_detail' pk=note.pk %}">{{ note.title }}</a></h2>
+                <p>{{ note.content }}</p>
+                <p>User: {{ note.author }}</p>
+                <p>Created: {{ note.created_at }}</p>
+                <!-- add permission to update-->
+                {% if perms.sticky_notes_app.change_stick_notes %}
+                <a href="{% url 'notes_update' note.id %}">Edit</a>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No notes available.</p>
+{% endif %}
+{% endblock %}
