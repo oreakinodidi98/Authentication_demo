@@ -11,7 +11,9 @@ def register_user(request):
             password = form.cleaned_data['password']
             password_conf = form.cleaned_data['password_conf']
             if password == password_conf:
+                # create a new user
                 new_user = User()
+                # set the username and password
                 new_user.username = form.cleaned_data['username']
                 new_user.set_password(password)
                 new_user.save()
