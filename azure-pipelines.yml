@@ -58,7 +58,8 @@ steps:
     . venv/bin/activate
     cd '$(projectRoot)'
     echo "Running tests in project root: $(projectRoot)"
-    python manage.py test --testrunner xmlrunner.extra.djangotestrunner.XMLTestRunner --output-file=../test-results/TEST-results.xml --no-input
+    python manage.py test --testrunner xmlrunner.extra.djangotestrunner.XMLTestRunner --no-input
+    python manage.py test > test-results.txt
   displayName: 'Run tests'
 
 - task: PublishTestResults@2
