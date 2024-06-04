@@ -1,13 +1,19 @@
 # Python Django
-# Test a Django project on multiple versions of Python.
+
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/python
 
+# trigger set to main branch
 trigger:
 - main
 
+
+
+# The matrix strategy allows you to test the project on multiple versions of Python.
 pool:
+  # pool is set to ubuntu-latest
   vmImage: ubuntu-latest
+  # matrix strategy is used to test the project on multiple versions of Python
 strategy:
   matrix:
     Python38:
@@ -16,14 +22,20 @@ strategy:
       PYTHON_VERSION: '3.9'
     Python310:
       PYTHON_VERSION: '3.10'
+      # maxParallel is set to 3
   maxParallel: 3
 
+  # steps are defined to install the required dependencies and run the tests
 steps:
+  # Use Python version
 - task: UsePythonVersion@0
   inputs:
+    # Python version is set to $(PYTHON_VERSION)
     versionSpec: '$(PYTHON_VERSION)'
+    # architecture is set to x64
     architecture: 'x64'
 
+    # Install dependencies
 - task: PythonScript@0
   displayName: 'Export project path'
   inputs:
@@ -40,6 +52,7 @@ steps:
       print('Found Django project in', project_location)
       print('##vso[task.setvariable variable=projectRoot]{}'.format(project_location))
 
+# script is there to install prerequisites
 - script: |
     python -m pip install --upgrade pip setuptools wheel
     python -m venv venv
@@ -58,16 +71,11 @@ steps:
     . venv/bin/activate
     cd '$(projectRoot)'
     echo "Running tests in project root: $(projectRoot)"
-    python manage.py test --testrunner xmlrunner.extra.djangotestrunner.XMLTestRunner --no-input
-    python manage.py test > test-results.txt
-    python manage.py test --testrunner xmlrunner.extra.djangotestrunner.XMLTestRunner --no-input --output-file test-results/TEST-results.xml
+    python manage.py test --testrunner xmlrunner.extra.djangotestrunner.XMLTestRunner --no-input   
   displayName: 'Run tests'
 
 - task: PublishTestResults@2
   inputs:
-    testResultsFormat: 'JUnit'
-    testResultsFiles: '**/test-results/*.xml'
+    testResultsFiles: '**/TEST-*.xml'
     testRunTitle: 'Python $(PYTHON_VERSION)'
-    mergeTestResults: true
-    failTaskOnFailedTests: true
   condition: succeededOrFailed()
