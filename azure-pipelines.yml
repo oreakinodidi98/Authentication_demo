@@ -45,9 +45,10 @@ steps:
     pip install -r requirements.txt
     pip install unittest-xml-reporting
   displayName: 'Install prerequisites'
+
 # Instal virtual env to run testing 
 - script: |
-    source venv/bin/activate
+    . venv/bin/activate
     pushd '$(projectRoot)'
     python manage.py test --testrunner xmlrunner.extra.djangotestrunner.XMLTestRunner --no-input
   displayName: 'Run tests'
