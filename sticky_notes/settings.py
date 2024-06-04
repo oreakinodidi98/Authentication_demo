@@ -133,3 +133,6 @@ LOGIN_URL = 'login'
 
 # Redirect URL
 LOGIN_REDIRECT_URL = 'home'
+
+# Test runner
+TEST_RUNNER = 'xmlrunner.extra.djangotestrunner.XMLTestRunner'
