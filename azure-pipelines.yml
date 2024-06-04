@@ -10,12 +10,12 @@ pool:
   vmImage: ubuntu-latest
 strategy:
   matrix:
-    Python35:
-      PYTHON_VERSION: '3.5'
-    Python36:
-      PYTHON_VERSION: '3.6'
     Python38:
       PYTHON_VERSION: '3.8'
+    Python39:
+      PYTHON_VERSION: '3.9'
+    Python310:
+      PYTHON_VERSION: '3.10'
   maxParallel: 3
 
 steps:
