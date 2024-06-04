@@ -28,11 +28,4 @@ urlpatterns = [
     path("notes/<int:pk>/update/", notes_update, name="notes_update"),
     # url pattern for deleting notes
     path("notes/<int:pk>/delete/", notes_delete, name="notes_delete"),
-    # # url pattern for creating author
-    # path("author/create/", author_create, name="author_create"),
-    # # url pattern for registering author
-    # path("author/register/", author_register, name="register"),
-    # # URL pattern for log out
-    # path("logout/", author_logout, name="logout"),
-
 ]

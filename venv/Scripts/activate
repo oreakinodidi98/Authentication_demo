@@ -38,7 +38,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\codebootcamp\django_Sticky_notes_python\sticky_notes\venv"
+VIRTUAL_ENV="C:\codebootcamp\sticky_notes_auth\sticky_notes\venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

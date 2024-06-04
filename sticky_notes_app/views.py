@@ -13,41 +13,67 @@ from django.contrib.auth.decorators import login_required, permission_required
 # can also add login required decorator to restrict access to authenticated users only 
 @login_required
 def home(request):
+    """
+    Renders the home page with a list of sticky notes.
+
+    Parameters:
+    - request: The HTTP request object.
+
+    Returns:
+    - A rendered HTML template with the home page.
+
+    """
     notes = Stick_notes.objects.all()
     # context dictionary to pass data to template
     context = {
         'notes': notes,
         'page_title': 'Home Page'
-               }
+    }
     return render(request, 'home.html', context)
 # views for CRUD functionality
 
 # add permission required decorator to restrict access to authenticated users only
 # add name of app and model to permission_required decorator, model in this case is Stick_notes so lower case and separated by underscore
 @permission_required('sticky_notes_app.add_stick_notes', login_url='login')
-# view for creating notes
 def notes_create(request):
-    # if user is authenticated, they can proceed to create notes
-    # if request is post then save the data
+    """
+    View function for creating notes.
+
+    This view function allows authenticated users to create notes. If the request method is POST,
+    the data is saved to the database. If the form is valid, the note is saved and the user is
+    redirected to the home page. If the request method is GET, a new form object is created.
+
+    Parameters:
+    - request: The HTTP request object.
+
+    Returns:
+    - If the request method is POST and the form is valid, redirects to the home page.
+    - If the request method is GET, renders the 'notes_form.html' template with the note form.
+
+    """
     if request.method == "POST":
-        # form object
         note_form = Stick_notesForm(request.POST)
-        # if form is valid then save the data
         if note_form.is_valid():
-            # save the data to database
             note = note_form.save(commit=False)
-            # save the data
             note.save()
-            # redirect to home page
             return redirect('home') 
     else:
-        # if request is get then create the form object
         note_form = Stick_notesForm()
     return render(request, 'notes_form.html', {'note_form': note_form})
 
 
 # views for details of specific notes
 def notes_detail(request, pk):
+    """
+    View function to display the details of a note.
+
+    Args:
+        request (HttpRequest): The HTTP request object.
+        pk (int): The primary key of the note.
+
+    Returns:
+        HttpResponse: The HTTP response object containing the rendered template.
+    """
     # get the notes object
     note = get_object_or_404(Stick_notes, pk=pk)
     # context dictionary to pass data to template
@@ -59,15 +85,27 @@ def notes_detail(request, pk):
 # add permission required decorator to restrict access to authenticated users only
 # add name of app and model to permission_required decorator, model in this case is Stick_notes so lower case and separated by underscore
 @permission_required('sticky_notes_app.change_stick_notes', login_url='home')
-# view for updating notes
 def notes_update(request, pk):
+    """
+    View function for updating notes.
+
+    Args:
+        request (HttpRequest): The HTTP request object.
+        pk (int): The primary key of the note to be updated.
+
+    Returns:
+        HttpResponse: The HTTP response object.
+
+    Raises:
+        Http404: If the note with the given primary key does not exist.
+    """
     # get the notes object
     note = get_object_or_404(Stick_notes, pk=pk)
-    # if request is post then save the data
+    
     if request.method == "POST":
         # form object
         note_form = Stick_notesForm(request.POST, instance=note)
-        # if form is valid then save the data
+        
         if note_form.is_valid():
             # save the data to database
             note = note_form.save(commit=False)
@@ -77,6 +115,7 @@ def notes_update(request, pk):
     else:
         # if request is get then create the form object
         note_form = Stick_notesForm(instance=note)
+    
     return render(request, 'notes_form.html', {'note_form': note_form})
 
 # add permission required decorator to restrict access to authenticated users only
@@ -91,74 +130,6 @@ def notes_delete(request, pk):
     # redirect to home page
     return redirect('home')
     
-# # view for signing in user
-# def author_create(request):
-#     # if request is post then save the data
-#     if request.method == "POST":
-#         # form object
-#         author_form  = AuthenticationForm(request, data=request.POST)
-#         # if form is valid then save the data
-#         if author_form.is_valid():
-#             # get the username and password
-#             username = author_form.cleaned_data.get('username')
-#             password = author_form.cleaned_data.get('password')
-#             # authenticate the user
-#             user = authenticate(username=username, password=password)
-#             # if user is not None then login the user
-#             if user is not None:
-#                 # login the user
-#                 login(request, user)
-#                 # display message
-#                 messages.success(request, f'Welcome {username}!')
-#                 # redirect to home page
-#                 return redirect('home')
-#             else:
-#                 # display message
-#                 messages.error(request, 'Invalid username or password.')  
-#         else:
-#             # display message
-#             messages.error(request, 'Invalid username or password.')
-#     author_form = AuthenticationForm()
-#     # context dictionary to pass data to template
-#     context = {
-#         'page_title': 'Login Page',
-#         'author_form': author_form
-#                }
-#     return render(request, 'login.html', context)
 
-# # view for registering user
-# def author_register(request):
-#     # if request is post then save the data
-#     if request.method == "POST":
-#         # form object
-#         author_form = UserRegisterForm(request.POST)
-#         # if form is valid then save the data
-#         if author_form.is_valid():
-#             # save the data to database
-#             author_form.save()
-#             # get username
-#             username = author_form.cleaned_data.get('username')
-#             # display message
-#             messages.success(request, f'Account created for {username}!')
-#             # redirect to login page
-#             return redirect('author_create') 
-#     else:
-#         # if request is get then create the form object
-#         author_form = UserRegisterForm()
-#     # context dictionary to pass data to template
-#     context = {
-#         'page_title': 'Login Page',
-#         'author_form': author_form
-#                }
-#     return render(request, 'register.html', context)
-
-# # view for signing out user
-# def author_logout(request):
-#     # logout the user
-#     logout(request)
-#     # display message
-#     messages.info(request, 'You have successfully logged out.')
-#     # redirect to home page
-#     return redirect('home')
 
 
