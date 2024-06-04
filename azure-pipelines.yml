@@ -46,6 +46,7 @@ steps:
     . venv/bin/activate
     pip install -r requirements.txt
     pip install unittest-xml-reporting
+    pip install django
     echo "Python version:"
     python --version
     echo "Installed packages:"
