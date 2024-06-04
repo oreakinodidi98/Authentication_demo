@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Stick_notes, Author
-from .forms import Stick_notesForm, UserRegisterForm
+from .models import Stick_notes
+from .forms import Stick_notesForm
 # import authentication form from django
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
@@ -35,12 +35,8 @@ def notes_create(request):
         # if form is valid then save the data
         if note_form.is_valid():
             # save the data to database
-            note= note_form.save(commit=False)
-            # if user is authenticated then set the author
-            if request.user.is_authenticated:
-                # set the author
-                note.author = request.user
-                # save the data
+            note = note_form.save(commit=False)
+            # save the data
             note.save()
             # redirect to home page
             return redirect('home') 
@@ -75,11 +71,6 @@ def notes_update(request, pk):
         if note_form.is_valid():
             # save the data to database
             note = note_form.save(commit=False)
-            # if user is authenticated then set the author
-            if request.user.is_authenticated:
-                # set the author
-                note.author = request.user
-                # save the data
             note.save()
             # redirect to home page
             return redirect('home') 

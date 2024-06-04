@@ -17,11 +17,13 @@
             <li>
                 <h2><a href="{% url 'notes_detail' pk=note.pk %}">{{ note.title }}</a></h2>
                 <p>{{ note.content }}</p>
-                <p>User: {{ note.author }}</p>
                 <p>Created: {{ note.created_at }}</p>
                 <!-- add permission to update-->
                 {% if perms.sticky_notes_app.change_stick_notes %}
                 <a href="{% url 'notes_update' note.id %}">Edit</a>
+                <!-- else statment -->
+                {% else %}
+                <p>Sorry you are not authorized to edit this note.</p>
                 {% endif %}
             </li>
         {% endfor %}

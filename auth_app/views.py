@@ -22,10 +22,11 @@ def register_user(request):
                     # get the group
                     group = Group.objects.get(name='Posters')
                     # add user to group
+                    new_user.groups.add(group)
                 elif request.POST['account_type'] == 'reader':
                     group = Group.objects.get(name='Readers')
                 # add user to group
-                new_user.groups.add(group)
+                    new_user.groups.add(group)
                 login(request, new_user)
                 return redirect('login')
     form = RegisterForm()
