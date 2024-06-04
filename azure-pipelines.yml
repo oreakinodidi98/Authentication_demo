@@ -60,10 +60,14 @@ steps:
     echo "Running tests in project root: $(projectRoot)"
     python manage.py test --testrunner xmlrunner.extra.djangotestrunner.XMLTestRunner --no-input
     python manage.py test > test-results.txt
+    python manage.py test --testrunner xmlrunner.extra.djangotestrunner.XMLTestRunner --no-input --output-file test-results/TEST-results.xml
   displayName: 'Run tests'
 
 - task: PublishTestResults@2
   inputs:
+    testResultsFormat: 'JUnit'
     testResultsFiles: '**/test-results/*.xml'
     testRunTitle: 'Python $(PYTHON_VERSION)'
+    mergeTestResults: true
+    failTaskOnFailedTests: true
   condition: succeededOrFailed()
