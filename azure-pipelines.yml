@@ -46,17 +46,22 @@ steps:
     . venv/bin/activate
     pip install -r requirements.txt
     pip install unittest-xml-reporting
+    echo "Python version:"
+    python --version
+    echo "Installed packages:"
+    pip list
   displayName: 'Install prerequisites'
 
 # Instal virtual env to run testing 
 - script: |
     . venv/bin/activate
-    pushd '$(projectRoot)'
-    python manage.py test --testrunner xmlrunner.extra.djangotestrunner.XMLTestRunner --no-input
+    cd '$(projectRoot)'
+    echo "Running tests in project root: $(projectRoot)"
+    python manage.py test --testrunner xmlrunner.extra.djangotestrunner.XMLTestRunner --output-file=../test-results/TEST-results.xml --no-input
   displayName: 'Run tests'
 
 - task: PublishTestResults@2
   inputs:
-    testResultsFiles: "**/TEST-*.xml"
+    testResultsFiles: '**/test-results/*.xml'
     testRunTitle: 'Python $(PYTHON_VERSION)'
   condition: succeededOrFailed()
