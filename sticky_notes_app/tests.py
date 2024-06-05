@@ -44,7 +44,7 @@ class TestViews(TestCase):
         # create a author object for testing
         #test_author = Author.objects.create(name=' testingdemo', username='Test1Username', email='Test@gmail.com', password='Password', date_of_birth='2021-01-01')
         # create a Stick_notes object for testing
-        Stick_notes.objects.create(title='Test Title2', content='Test Content 2', author= test_author)
+        Stick_notes.objects.create(title='Test Title2', content='Test Content 2')
         # # django test client
         # self.client = Client()
         # #login the user 
