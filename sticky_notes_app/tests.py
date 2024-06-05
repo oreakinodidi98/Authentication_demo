@@ -2,7 +2,7 @@ from django.test import TestCase, Client
 # import reverse
 from django.urls import reverse
 # import models from sticky_notes_app
-from sticky_notes_app.models import Stick_notes, Author
+from sticky_notes_app.models import Stick_notes
 #import forms from auth_app
 from auth_app.forms import RegisterForm
 # import User and Group from django.contrib.auth.models
@@ -17,7 +17,7 @@ class TestPostNotes(TestCase):
     # create a set up method to run before each test
     def setUp(self):
         # create a test_author object for testing
-        test_author = Author.objects.create(name=' testingdemo', username='Test1Username', email='Test@gmail.com', password='Password', date_of_birth='2021-01-01')
+        #test_author = Author.objects.create(name=' testingdemo', username='Test1Username', email='Test@gmail.com', password='Password', date_of_birth='2021-01-01')
         # create a Stick_notes object for testing
         Stick_notes.objects.create(title='Test Title', content='Test Content', author= test_author)
         
@@ -42,7 +42,7 @@ class TestViews(TestCase):
     # create a set up method to run before each test
     def setUp(self):
         # create a author object for testing
-        test_author = Author.objects.create(name=' testingdemo', username='Test1Username', email='Test@gmail.com', password='Password', date_of_birth='2021-01-01')
+        #test_author = Author.objects.create(name=' testingdemo', username='Test1Username', email='Test@gmail.com', password='Password', date_of_birth='2021-01-01')
         # create a Stick_notes object for testing
         Stick_notes.objects.create(title='Test Title2', content='Test Content 2', author= test_author)
         # # django test client
