@@ -19,7 +19,7 @@ class TestPostNotes(TestCase):
         # create a test_author object for testing
         #test_author = Author.objects.create(name=' testingdemo', username='Test1Username', email='Test@gmail.com', password='Password', date_of_birth='2021-01-01')
         # create a Stick_notes object for testing
-        Stick_notes.objects.create(title='Test Title', content='Test Content', author= test_author)
+        Stick_notes.objects.create(title='Test Title', content='Test Content')
         
         
 
