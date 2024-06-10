@@ -1,14 +1,41 @@
-# Django part 2
+# Sticky notes Application
+
+## Description
+
+This project demonstrates the creation and implementation of a Django project from scratch. It covers the essential aspects of Django, including setting up a project, creating apps, implementing models and forms, handling data, and managing URLs and views. Learning these aspects of Django is crucial for developing robust and scalable web applications efficiently.
+
+## Table of Contents
+
+- [Sticky notes Application](#sticky-notes-application)
+  - [Description](#description)
+  - [Table of Contents](#table-of-contents)
+  - [Agenda](#agenda)
+  - [Set up process](#set-up-process)
+  - [Run project](#run-project)
+  - [Default user model Example](#default-user-model-example)
+  - [Set up URLs](#set-up-urls)
+  - [Creeate templates](#creeate-templates)
+  - [Create forms](#create-forms)
+  - [Create views](#create-views)
+  - [URL](#url)
+  - [Make migrations](#make-migrations)
+  - [Create artifact](#create-artifact)
+  - [Unit Testing](#unit-testing)
+  - [Principles of Unit Testing](#principles-of-unit-testing)
+  - [How to Run tests](#how-to-run-tests)
+  - [create super user](#create-super-user)
+  - [Installation](#installation)
+  - [Usage](#usage)
 
 ## Agenda
 
-Create a Django Project
+1. Create a Django Project
 2. Create a Django app
 3. Implement Model and Logic
 4. Implement forms, data handling
 5. Retrieve data from both Template view
 
-## process
+## Set up process
 
 - python -m venv venv
 - . .\venv\Scripts\Activate
@@ -23,7 +50,7 @@ Create a Django Project
 - **create DJANGO app ->**django-admin startapp sticky_notes_app
 - in project -> settings -> INSTALLED_APPS -> add name of application E.G sticky_notes
 
-## run project
+## Run project
 
 - start Project:
 ```py project_name.py runserver```
@@ -37,12 +64,7 @@ Create a Django Project
 - add models.py in app folder
 - add forms.py in app folder
 
-## default user model
-
-![default user model](image.png)
-![auth backend](image-1.png)
-![settings.py file](image-2.png)
-![registration view](image-3.png)
+## Default user model Example
 
 ``` py
 from django.contrib.auth.models import User
@@ -54,25 +76,26 @@ user = User.object.create_user(username='ore', password='password123')
 user.email ='ore@example.com'
 user.saave()
 ```
-## set up URLs
+
+## Set up URLs
 
 - creat URLS.py in app folder
 - import include, path
 - Add a URL to urlpatterns as shown in example
 - this URL will be for the APP
 
-## creeate templates
+## Creeate templates
 
 - create templates folder in app folder
 - create auth app
   - inside create partials folder -> HTML that not a full page
   - e.g. header and footer
 
-## create forms
+## Create forms
 
 - in app folder create forms.py
 
-## create views
+## Create views
 
 - in app folder create views
 - import forms
@@ -91,7 +114,7 @@ user.saave()
 - start Project:
 ```py manage.py runserver```
 
-## create artifact
+## Create artifact
 
 - create a .pypirc file
 - create a .toml file
@@ -216,9 +239,40 @@ suite = unittest.TestLoader().loadTestsFromTestCas(TestTodoList) unittest.TextTe
 
 - unit = behaviour of our program -> not each function but the feature that works togethere
 - refacturing = making code better without changing function of the code
+- python manage.py test sticky_notes_app
 
 ## create super user
 
 - python manage.py createsuperuser
 - create group in admin site
 - chance
+
+## Installation
+
+- To install this project locally, follow these steps:
+- Clone the repository:
+  - git clone https://github.com/your-username/sticky_notes.git
+  - cd sticky_notes
+- Create a virtual environment and activate it
+  - python -m venv venv
+  - . .\venv\Scripts\Activate  # On Windows
+  - source venv/bin/activate   # On macOS/Linux
+- Install the required dependencies:
+  - pip install -r requirements.txt
+- Create a Django project:
+  - django-admin startproject sticky_notes .
+- Run the server:
+  - python manage.py runserver
+
+## Usage
+
+After installing the project, follow these steps to use the code:
+
+- Start the development server:
+  - python manage.py runserver
+- Open your browser and navigate to http://127.0.0.1:8000/ to view the application
+- To create a superuser for accessing the Django admin panel:
+  - python manage.py createsuperuser
+- Log in to the admin panel at http://127.0.0.1:8000/admin/ using the superuser credentials.
+- You can now create, update, and manage your Django app using the provided templates, forms, and views.
+- You can copy and paste this content into your README file. Adjust the repository URL and any other specific details as needed.
